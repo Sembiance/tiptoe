@@ -1,11 +1,12 @@
-{ "name": "tiptoe",
-  "version": "0.1.1",
-  "author": "Robert Schultz <robert@cosmicrealms.com>",
-  "description": "Yet another node async control flow library for handling callbacks. Very similar to step.",
-  "main": "index",
-  "engines": { "node": ">0.3.0" },
-  "keywords": [ "async", "step" ],
-  "homepage" : "http://github.com/Sembiance/node-tiptoe",
-  "licenses": [ { "type": "MIT", "url": "http://github.com/Sembiance/node-tiptoe/raw/master/LICENSE" } ],
-  "repository": { "type": "git", "url": "http://github.com/Sembiance/node-tiptoe.git" }
+{
+	"name": "tiptoe",
+	"version": "0.1.2",
+	"author": "Robert Schultz <robert@cosmicrealms.com>",
+	"description": "Yet another node async control flow library for handling callbacks. Very similar to step.",
+	"main": "index",
+	"engines": { "node": ">0.3.0" },
+	"keywords": [ "async", "step" ],
+	"homepage" : "http://github.com/Sembiance/node-tiptoe",
+	"licenses": [ { "type": "MIT", "url": "http://github.com/Sembiance/node-tiptoe/raw/master/LICENSE" } ],
+	"repository": { "type": "git", "url": "http://github.com/Sembiance/node-tiptoe.git" }
 }

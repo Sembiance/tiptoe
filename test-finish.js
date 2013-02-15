@@ -16,15 +16,15 @@ tiptoe(
 	function step3(b)
 	{
 		console.log(b);
-		this.exit();
+		this.finish(null, "c");
 	},
 	function step4()
 	{
 		console.log("SHOULD NOT SEE1");
 	},
-	function finish(err)
+	function finish(err, c)
 	{
-		console.log("SHOULD NOT SEE2");
+		console.log(c);
 		process.exit(0);
 	}
 );

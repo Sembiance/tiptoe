@@ -101,8 +101,15 @@ function tiptoe()
 		steps = [];
 	};
 
+	next.finish = function()
+	{
+		steps = steps.slice(steps.length-1);
+		next.apply(null, arguments);
+	};
+
 	// Start the engine and pass nothing to the first step
 	next();
 }
 
-module.exports = tiptoe;
+if(typeof module!=="undefined" && "exports" in module)
+	module.exports = tiptoe;

@@ -92,7 +92,9 @@ You can also save data for use in later functions by using the `this.data` objec
 		}
 	);
 
-You can also exit out of the step sequence at any time by simple calling `this.exit()`
+To skip all remaining function steps, call `this.exit()`
+
+To skip to the last function step, call `this.finish()`. Any arguments you pass (including error as argument 1) will be passed into the last function call.
 
 ## Error Handling
 
@@ -122,7 +124,7 @@ tiptoe also handles that with the `this.capture()` feature.
 
 step also threw away extra arguments from parallel callbacks, where as tiptoe will keep these and pass them as an array.
 
-Also I added the `this.data` and `this.exit()` features.
+Also I added the `this.data` `this.exit()` and `this.finish()` features.
 
 Lastly, I removed the step.fn() functionality. I personally never used it.
 
