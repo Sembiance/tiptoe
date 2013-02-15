@@ -1,5 +1,5 @@
 { "name": "tiptoe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Robert Schultz <robert@cosmicrealms.com>",
   "description": "Yet another node async control flow library for handling callbacks. Very similar to step.",
   "main": "index",
