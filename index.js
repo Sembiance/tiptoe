@@ -105,23 +105,4 @@ function tiptoe()
 	next();
 }
 
-// Tack on leading and tailing steps for input and output and return the whole thing as a function.  Basically turns step calls into function factories.
-tiptoe.fn = function tiptoefn()
-{
-	var steps = Array.prototype.slice.call(arguments);
-
-	return function() {
-		var args = Array.prototype.slice.call(arguments);
-
-		// Insert a first step that primes the data stream
-		var toRun = [function() { this.apply(null, args); }].concat(steps);
-
-		// If the last arg is a function add it as a last step
-		if(typeof args[args.length-1]==="function")
-			toRun.push(args.pop());
-
-		tiptoe.apply(null, toRun);
-	};
-};
-
 module.exports = tiptoe;

@@ -124,4 +124,6 @@ step also threw away extra arguments from parallel callbacks, where as tiptoe wi
 
 Also I added the `this.data` and `this.exit()` features.
 
+Lastly, I removed the step.fn() functionality. I personally never used it.
+
 So tiptoe is the next evolution of step in my opinion. Still very basic and simple, but with just a little but more power while requiring a bit less code.
