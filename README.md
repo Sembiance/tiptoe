@@ -35,6 +35,7 @@ tiptoe will execute each function, in serial sequence, one after the other.
 You use `this` as the callback to any asynchronous functions you call.
 
 You can also use run calls in parallel:
+
 	var tiptoe = require("tiptoe"),
 		fs = require("fs");
 
@@ -63,7 +64,7 @@ The results from the parallel callbacks will be passed to the next function in t
 
 If a parallel callback returns more than 1 argument, the corresponding argument to the next function will be an array of arguments.
 
-You can also save data for use in later functions by using the this.data object:
+You can also save data for use in later functions by using the `this.data` object:
 
 	var tiptoe = require("tiptoe"),
 		fs = require("fs");
@@ -91,7 +92,7 @@ You can also save data for use in later functions by using the this.data object:
 		}
 	);
 
-You can also exit out of the step sequence at any time by simple calling this.exit()
+You can also exit out of the step sequence at any time by simple calling `this.exit()`
 
 ## Error Handling
 
@@ -101,13 +102,13 @@ If an error is thrown or the `this` callback or a `this.parallel()` callback rec
 
 Thus the last method will always receive a first argument that may contain an error.
 
-If you want to handle errors that occur from one function in the next function, you can call this.capture() and the next step will receive a possible error as the first argument.
+If you want to handle errors that occur from one function in the next function, you can call `this.capture()` and the next step will receive a possible error as the first argument.
 
 ## Why not just use step?
 
 I've been using step for many years now. It's absolutely awesome!
 
-I just noticed that 99% of the time I was just doing if(err) throw err; at the beginning of every function.
+I just noticed that 99% of the time I was just doing `if(err) throw err;` at the beginning of every function.
 
 Except for the last one, where I would actually handle any errors that took place.
 
@@ -117,10 +118,10 @@ Also with step, since I was just throwing errors from one function to the next, 
 
 This made it difficult to actually recover from errors that you COULD recover from, because you didn't know where they came from.
 
-tiptoe also handles that with the this.capture() feature.
+tiptoe also handles that with the `this.capture()` feature.
 
 step also threw away extra arguments from parallel callbacks, where as tiptoe will keep these and pass them as an array.
 
-Also I added the this.data and this.exit() features.
+Also I added the `this.data` and `this.exit()` features.
 
 So tiptoe is the next evolution of step in my opinion. Still very basic and simple, but with just a little but more power while requiring a bit less code.
