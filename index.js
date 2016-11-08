@@ -36,6 +36,9 @@ function tiptoe()
 
 		// Get the next step to execute
 		var nextStep = steps.shift();
+		if(!nextStep)
+			throw new Error("Invalid tiptoe step, type: " + typeof nextStep);
+		
 		results = [];
 
 		var result;
