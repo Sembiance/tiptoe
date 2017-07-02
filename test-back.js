@@ -1,31 +1,31 @@
 "use strict";
 
 var tiptoe = require("./index");
+var RETRY_COUNT=2;
 
 tiptoe(
 	function step1()
 	{
-		return "a";
+		this.parallel()(undefined, RETRY_COUNT);
+		this.parallel()(undefined, "a");
 	},
-	function step2(a)
+	function step2(triesCounter, a)
 	{
-		console.log(a);
+		if(a)
+			console.log(a);
+
+		console.log("b %d of %d", triesCounter, RETRY_COUNT);
 		this.capture();
-		this(a==="a" ? true : undefined);
+		this(triesCounter ? triesCounter : undefined);
 	},
-	function step3(err)
+	function step3(triesCounter)
 	{
-		if(err)
-			return this.back(undefined, "b");
+		if(triesCounter)
+			return this.back(undefined, triesCounter-1);
 
 		this(null, "c");
 	},
-	function step4(c)
-	{
-		console.log(c);
-		this();
-	},
-	function finish(err)
+	function finish(err, c)
 	{
 		if(err)
 		{
@@ -33,7 +33,7 @@ tiptoe(
 			process.exit(1);
 		}
 
-		console.log("d");
+		console.log(c);
 		process.exit(0);
 	}
 );
