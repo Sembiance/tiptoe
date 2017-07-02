@@ -4,7 +4,7 @@
 function tiptoe()
 {
 	var steps = Array.prototype.slice.call(arguments),
-		pending, counter, results, lock, captureErrors;
+		pending, counter, results, lock, captureErrors, curStep, lastStep;
 
 	// Define the main callback that's given as 'this' to the steps.
 	function next()
@@ -35,9 +35,11 @@ function tiptoe()
 		captureErrors = false;
 
 		// Get the next step to execute
-		var nextStep = steps.shift();
-		if(!nextStep)
-			throw new Error("Invalid tiptoe step, type: " + typeof nextStep);
+		if(curStep)
+			lastStep = curStep;
+		curStep = steps.shift();
+		if(!curStep)
+			throw new Error("Invalid tiptoe step, type: " + typeof curStep);
 		
 		results = [];
 
@@ -48,7 +50,7 @@ function tiptoe()
 		{
 			lock = true;
 			captureErrors = false;
-			result = nextStep.apply(next, args);
+			result = curStep.apply(next, args);
 		}
 		catch(e)
 		{
@@ -107,6 +109,12 @@ function tiptoe()
 	next.finish = function()
 	{
 		steps = steps.slice(steps.length-1);
+		next.apply(null, arguments);
+	};
+
+	next.back = function()
+	{
+		steps = [lastStep, curStep].concat(steps);
 		next.apply(null, arguments);
 	};
 
