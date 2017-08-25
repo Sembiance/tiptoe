@@ -1,6 +1,6 @@
 "use strict";
 
-// Mostly copied from creatix step (https://github.com/creationix/step)
+// Original inspiration: https://github.com/creationix/step
 function tiptoe()
 {
 	var steps = Array.prototype.slice.call(arguments),
