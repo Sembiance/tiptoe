@@ -32,7 +32,7 @@ tiptoe(
 	{
 		if(err)
 		{
-			console.error(err);
+			console.log(err);
 			console.log("e");
 			process.exit(1);
 		}

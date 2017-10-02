@@ -24,7 +24,7 @@ tiptoe(
 	{
 		if(err)
 		{
-			console.error(err);
+			console.log(err);
 			console.log("c");
 			process.exit(1);
 		}
