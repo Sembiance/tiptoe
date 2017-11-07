@@ -73,7 +73,7 @@ function tiptoe()
 	}
 
 	// Add a special callback generator 'this.parallel()' that groups stuff.
-	next.parallel = function()
+	next.parallel = function(noerrarg)
 	{
 		var index = 1 + counter++;
 		pending++;
@@ -82,11 +82,11 @@ function tiptoe()
 			pending--;
 
 			// Compress the error from any result to the first argument
-			if(arguments[0])
+			if(!noerrarg && arguments[0])
 				results[0] = arguments[0];
 
 			// Send the other results as arguments
-			results[index] = arguments.length>2 ? Array.prototype.slice.call(arguments, 1) : arguments[1];
+			results[index] = arguments.length>(noerrarg ? 1 : 2) ? Array.prototype.slice.call(arguments, (noerrarg ? 0 : 1)) : arguments[(noerrarg ? 0 : 1)];
 
 			// When all parallel branches are done, call the callback
 			if(!lock && pending===0)

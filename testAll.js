@@ -10,7 +10,7 @@ function run(command, args, options, cb)
 	options = options || {};
 	
 	if(!options.silent)
-		base.info("RUNNING%s: %s %s", (options.cwd ? " (cwd: " + options.cwd + ")": ""), command, args.join(" "));
+		console.log("RUNNING%s: %s %s", (options.cwd ? " (cwd: " + options.cwd + ")": ""), command, args.join(" "));
 	if(!options.maxBuffer)
 		options.maxBuffer = (1024*1024)*20;    // 20MB Buffer
 	if(!options.hasOwnProperty("redirect-stderr"))
@@ -59,7 +59,7 @@ function run(command, args, options, cb)
 		}
 
 		if(options["verbose"])
-			base.info("%s %s\n%s %s", command, args.join(" "), stdout || "", stderr || "");
+			console.log("%s %s\n%s %s", command, args.join(" "), stdout || "", stderr || "");
 
 		if(cb)
 		{
@@ -73,8 +73,8 @@ function run(command, args, options, cb)
 	}
 }
 
-const validResults = ["abcde", "abc", "abc", "abc", "ab", "a", "abc", "ab['c','d']e['f','g']done"];
-["test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js", "test-finish.js", "test.js"].serialForEach((testName, subcb, i) => {
+const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "ab['c','d']e['f','g']done"];
+["test-parallel-noerrarg.js", "test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js", "test-finish.js", "test.js"].serialForEach((testName, subcb, i) => {
 	run("node", [path.join(__dirname, testName)], {silent:true, "ignore-errors":true,"redirect-stderr":true}, (err, data) => { assert.strictEqual(data.strip("\n "), validResults[i], testName); subcb(); });
 }, err => process.exit(0) );
 

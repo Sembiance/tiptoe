@@ -64,6 +64,8 @@ The results from the parallel callbacks will be passed to the next function in t
 
 If a parallel callback returns more than 1 argument, the corresponding argument to the next function will be an array of arguments.
 
+If you pass true to parallel, then you are stating the callback will not have an error object as the first parameter and to treat the first parameter as the start of return values.
+
 You can also save data for use in later functions by using the `this.data` object:
 
 	var tiptoe = require("tiptoe"),
