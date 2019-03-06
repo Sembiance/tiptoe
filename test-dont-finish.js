@@ -1,6 +1,6 @@
 "use strict";
 
-var tiptoe = require("./index");
+const tiptoe = require("./index");
 
 function test(cb)
 {
@@ -14,7 +14,7 @@ function test(cb)
 		{
 			console.log("b");
 			return cb(undefined, "z"), undefined;
-			console.log("SHOULD NOT SEE1");
+			console.log("SHOULD NOT SEE1");		// eslint-disable-line no-unreachable
 		},
 		function step3(err)
 		{

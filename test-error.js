@@ -1,6 +1,6 @@
 "use strict";
 
-var tiptoe = require("./index");
+const tiptoe = require("./index");
 
 tiptoe(
 	function step1()
@@ -11,7 +11,7 @@ tiptoe(
 	{
 		console.log(a);
 
-		throw "b";
+		throw "b";	// eslint-disable-line no-throw-literal
 	},
 	function step3()
 	{

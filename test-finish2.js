@@ -11,22 +11,29 @@ tiptoe(
 	{
 		console.log(a);
 
-		process.nextTick(function doOnNextTick() { this("b"); }.bind(this));
+		this(null, "b");
 	},
-	function step3()
+	function step3(b)
+	{
+		console.log(b);
+		
+		setTimeout(() =>
+		{
+			console.log("c");
+			this.finish(null, "d");
+		}, 1000);
+	},
+	function step4()
 	{
 		console.log("SHOULD NOT SEE1");
 	},
-	function finish(err)
+	function step5()
 	{
-		if(err)
-		{
-			console.log(err);
-			console.log("c");
-			process.exit(1);
-		}
-
 		console.log("SHOULD NOT SEE2");
+	},
+	function finish(err, c)
+	{
+		console.log(c);
 		process.exit(0);
 	}
 );

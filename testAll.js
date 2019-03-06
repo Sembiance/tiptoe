@@ -1,9 +1,10 @@
 "use strict";
+/* eslint-disable no-param-reassign */
 
-var base = require("@sembiance/xbase"),
+const base = require("@sembiance/xbase"),
 	path = require("path"),
 	assert = require("assert"),
-	child_process = require("child_process");
+	childProcess = require("child_process");
 
 function run(command, args, options, cb)
 {
@@ -12,15 +13,15 @@ function run(command, args, options, cb)
 	if(!options.silent)
 		console.log("RUNNING%s: %s %s", (options.cwd ? " (cwd: " + options.cwd + ")": ""), command, args.join(" "));
 	if(!options.maxBuffer)
-		options.maxBuffer = (1024*1024)*20;    // 20MB Buffer
+		options.maxBuffer = (1024*1024)*20;	// 20MB Buffer
 	if(!options.hasOwnProperty("redirect-stderr"))
 		options["redirect-stderr"] = true;
 	
-	var p;
+	let p=null;
 	if(cb)
-		p = child_process.execFile(command, args, options, handler);
+		p = childProcess.execFile(command, args, options, handler);
 	else
-		p = child_process.execFile(command, args, handler);
+		p = childProcess.execFile(command, args, handler);
 
 	if(options.liveOutput)
 	{
@@ -37,7 +38,7 @@ function run(command, args, options, cb)
 
 		if(stderr)
 		{
-			stderr = stderr.replace(/Xlib:[ ]+extension \"RANDR\" missing on display \"[^:]*:[^"]+\".\n?/, "");
+			stderr = stderr.replace(/Xlib:[ ]+extension "RANDR" missing on display "[^:]*:[^"]+".\n?/, "");
 			stderr = stderr.trim();
 			if(!stderr.length)
 				stderr = null;
@@ -58,23 +59,29 @@ function run(command, args, options, cb)
 			}
 		}
 
-		if(options["verbose"])
+		if(options.verbose)
 			console.log("%s %s\n%s %s", command, args.join(" "), stdout || "", stderr || "");
 
 		if(cb)
 		{
 			if(options["redirect-stderr"])
-				setImmediate(function() { cb(err || stderr, stdout); });
+				setImmediate(() => cb(err || stderr, stdout));
 			else
-				setImmediate(function() { cb(err || stderr, stdout, stderr); });
+				setImmediate(() => cb(err || stderr, stdout, stderr));
 		}
 		else
+		{
 			options(err || stderr, stdout, stderr);
+		}
 	}
 }
 
-const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "ab['c','d']e['f','g']done"];
-["test-parallel-noerrarg.js", "test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js", "test-finish.js", "test.js"].serialForEach((testName, subcb, i) => {
-	run("node", [path.join(__dirname, testName)], {silent:true, "ignore-errors":true,"redirect-stderr":true}, (err, data) => { assert.strictEqual(data.strip("\n "), validResults[i], testName); subcb(); });
+const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "abcd", "ab['c','d']e['f','g']done"];
+["test-parallel-noerrarg.js", "test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js", "test-finish.js", "test-finish2.js", "test.js"].serialForEach((testName, subcb, i) =>
+{
+	run("node", [path.join(__dirname, testName)], {silent : true, "ignore-errors" : true, "redirect-stderr" : true}, (err, data) =>
+	{
+		assert.strictEqual(data.strip("\n "), validResults[i], testName);
+		subcb();
+	});
 }, err => process.exit(0) );
-

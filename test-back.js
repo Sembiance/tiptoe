@@ -1,7 +1,7 @@
 "use strict";
 
-var tiptoe = require("./index");
-var RETRY_COUNT=2;
+const tiptoe = require("./index");
+const RETRY_COUNT=2;
 
 tiptoe(
 	function step1()

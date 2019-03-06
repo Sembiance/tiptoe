@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable */
 
 // Original inspiration: https://github.com/creationix/step
 function tiptoe()
