@@ -1,7 +1,7 @@
 "use strict";
 /* eslint-disable no-param-reassign */
 
-const base = require("@sembiance/xbase"),
+const XU = require("@sembiance/xu"),
 	path = require("path"),
 	assert = require("assert"),
 	childProcess = require("child_process");
@@ -76,8 +76,9 @@ function run(command, args, options, cb)
 	}
 }
 
-const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "abcd", "ab['c','d']e['f','g']done"];
-["test-parallel-noerrarg.js", "test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js", "test-finish.js", "test-finish2.js", "test.js"].serialForEach((testName, subcb, i) =>
+const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "abcd", "abc", "abcde", "ab['c','d']e['f','g']done"];
+["test-parallel-noerrarg.js", "test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js",
+	"test-finish.js", "test-finish2.js", "test-called-twice.js", "test-dup-fun-names.js", "test.js"].serialForEach((testName, subcb, i) =>
 {
 	run("node", [path.join(__dirname, testName)], {silent : true, "ignore-errors" : true, "redirect-stderr" : true}, (err, data) =>
 	{
@@ -85,3 +86,4 @@ const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc"
 		subcb();
 	});
 }, err => process.exit(0) );
+
