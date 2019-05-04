@@ -8,6 +8,7 @@ function tiptoe()
 		pending, counter, results, lock, captureErrors, curStep, lastStep;
 
 	// Define the main callback that's given as 'this' to the steps.
+	// Make sure I never "return" any thing from this function here in tiptoe as that would mess all sorts of stuff up when folks call return this();
 	function next()
 	{
 		var args = Array.prototype.slice.call(arguments);
