@@ -4,6 +4,7 @@
 // Original inspiration: https://github.com/creationix/step
 function tiptoe()
 {
+	var originError = new Error();
 	var steps = Array.prototype.slice.call(arguments),
 		pending, counter, results, lock, captureErrors, curStep, lastStep;
 
@@ -41,7 +42,7 @@ function tiptoe()
 			lastStep = curStep;
 		curStep = steps.shift();
 		if(!curStep)
-			throw new Error("Invalid tiptoe step, type: " + typeof curStep);
+			throw new Error("noCurStep [" + curStep + "] at origin: " + originError.message);
 		
 		results = [];
 
