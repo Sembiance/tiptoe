@@ -1,0 +1,12 @@
+{
+	"name"         : "tiptoe-test",
+	"version"      : "1.0.0",
+	"description"  : "The tests for tiptoe",
+	"author"       : "Robert Schultz <robert@cosmicrealms.com>",
+	"private"      : true,
+	"license"      : "UNLICENSED",
+	"dependencies" :
+	{
+		"@sembiance/xu" : "file:/mnt/compendium/DevLab/node-modules/xu"
+	}
+}

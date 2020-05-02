@@ -115,6 +115,16 @@ function tiptoe()
 		next.apply(null, arguments);
 	};
 
+	// Will jump to a given step offset. Use negative numbers to jump backwards from the last step
+	next.jump = function(offset)
+	{
+		if(offset===0)
+			throw new Error("Invalid tiptoe.jump(offset) of: "+ offset);
+			
+		steps = steps.slice(offset>0 ? offset-1 : offset+-1);
+		next.apply(null, Array.prototype.slice.call(arguments, 1));
+	};
+
 	next.back = function()
 	{
 		steps = [lastStep, curStep].concat(steps);

@@ -98,6 +98,8 @@ To skip all remaining function steps, call `this.exit()`
 
 To skip to the last function step, call `this.finish()`. Any arguments you pass (including error as argument 1) will be passed into the last function call.
 
+To skip ahead to a specific step, call `this.jump(###)`. Positive numbers are how many steps past the current step. Negative numbers is how many steps counting backwards from the last end.
+
 To go back to the previous step instead of the next one, call `this.back()`. Any arguments you pass (including error as argument 1) will be passed into the previous function call.
 
 ## Error Handling

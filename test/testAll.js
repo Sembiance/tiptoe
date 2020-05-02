@@ -76,9 +76,9 @@ function run(command, args, options, cb)
 	}
 }
 
-const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "abcd", "abc", "abcde", "ab['c','d']e['f','g']done"];
+const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc", "abcd", "abc", "abcde", "ab['c','d']e['f','g']done", "abcde", "abcd"];
 ["test-parallel-noerrarg.js", "test-error-capture.js", "test-error-parallel.js", "test-error-two.js", "test-error.js", "test-exit.js", "test-fallthrough.js",
-	"test-finish.js", "test-finish2.js", "test-called-twice.js", "test-dup-fun-names.js", "test.js"].serialForEach((testName, subcb, i) =>
+	"test-finish.js", "test-finish2.js", "test-called-twice.js", "test-dup-fun-names.js", "test.js", "test-jump.js", "test-jump2.js"].serialForEach((testName, subcb, i) =>
 {
 	run("node", [path.join(__dirname, testName)], {silent : true, "ignore-errors" : true, "redirect-stderr" : true}, (err, data) =>
 	{

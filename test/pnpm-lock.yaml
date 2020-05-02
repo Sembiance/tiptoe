@@ -1,0 +1,5 @@
+dependencies:
+  '@sembiance/xu': 'link:../../xu'
+lockfileVersion: 5.1
+specifiers:
+  '@sembiance/xu': 'file:/mnt/compendium/DevLab/node-modules/xu'
