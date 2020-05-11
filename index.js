@@ -30,7 +30,16 @@ function tiptoe()
 		if(!captureErrors)
 		{
 			if(args[0])
+			{
+				// Let's embed some helpful meta info about where this error took place into the error arg. Don't do this when capturing errors, because then they are expected and we don't want to pollute it
+				if(typeof args[0]==="object")
+				{
+					args[0]._tiptoeRemainingSteps = steps.map(step => step.name);
+					args[0]._tiptoeOrigin = originError;
+					args[0]._tiptoeLoc = new Error();
+				}
 				steps = steps.slice(steps.length-1);
+			}
 			else if(steps.length>1)
 				args = args.slice(1);
 		}
