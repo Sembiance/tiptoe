@@ -36,7 +36,7 @@ function tiptoe()
 				{
 					args[0]._tiptoeRemainingSteps = steps.map(step => step.name);
 					args[0]._tiptoeOrigin = originError;
-					args[0]._tiptoeLoc = new Error();
+					//args[0]._tiptoeLoc = new Error();
 				}
 				steps = steps.slice(steps.length-1);
 			}
