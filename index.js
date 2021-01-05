@@ -1,10 +1,10 @@
 "use strict";
-/* eslint-disable */
+/* eslint-disable no-var, prefer-rest-params, init-declarations, no-underscore-dangle, unicorn/prefer-negative-index, prefer-spread, vars-on-top, no-throw-literal, unicorn/prefer-reflect-apply */
 
 // Original inspiration: https://github.com/creationix/step
 function tiptoe()
 {
-	var originError = new Error();
+	var originError = new Error();	// eslint-disable-line unicorn/error-message
 	var steps = Array.prototype.slice.call(arguments),
 		pending, counter, results, lock, captureErrors, curStep, lastStep;
 
@@ -21,7 +21,7 @@ function tiptoe()
 		{
 			// Throw errors
 			if(args[0])
-				throw args[0];
+				throw {err : args[0], origin : originError};
 
 			return;
 		}
@@ -41,7 +41,9 @@ function tiptoe()
 				steps = steps.slice(steps.length-1);
 			}
 			else if(steps.length>1)
+			{
 				args = args.slice(1);
+			}
 		}
 
 		captureErrors = false;
@@ -51,7 +53,7 @@ function tiptoe()
 			lastStep = curStep;
 		curStep = steps.shift();
 		if(!curStep)
-			throw new Error("noCurStep [" + curStep + "] at origin: " + originError.message);
+			throw new Error(`noCurStep [${curStep}] at origin: ${originError.message}`);
 		
 		results = [];
 
@@ -64,10 +66,10 @@ function tiptoe()
 			captureErrors = false;
 			result = curStep.apply(next, args);
 		}
-		catch(e)
+		catch(err)
 		{
 			// Pass any exceptions on through the next callback
-			next(e);
+			next(err);
 		}
 
 		if(counter>0 && pending===0)
@@ -85,12 +87,13 @@ function tiptoe()
 	}
 
 	// Add a special callback generator 'this.parallel()' that groups stuff.
-	next.parallel = function(noerrarg)
+	next.parallel = function parallel(noerrarg)
 	{
 		var index = 1 + counter++;
 		pending++;
 
-		return function() {
+		return function parallelReturn()
+		{
 			pending--;
 
 			// Compress the error from any result to the first argument
@@ -106,37 +109,37 @@ function tiptoe()
 		};
 	};
 
-	next.capture = function()
+	next.capture = function capture()
 	{
 		captureErrors = true;
 	};
 
 	next.data = {};
 
-	next.exit = function()
+	next.exit = function exit()
 	{
 		steps = [];
 	};
 
-	next.finish = function()
+	next.finish = function finish()
 	{
 		steps = steps.slice(steps.length-1);
 		next.apply(null, arguments);
 	};
 
 	// Will jump to a given step offset. Use negative numbers to jump backwards from the last step
-	next.jump = function(offset)
+	next.jump = function jump(offset)
 	{
 		if(offset===0)
-			throw new Error("Invalid tiptoe.jump(offset) of: "+ offset);
+			throw new Error(`Invalid tiptoe.jump(offset) of: ${offset}`);
 			
 		steps = steps.slice(offset>0 ? offset-1 : offset+-1);
 		next.apply(null, Array.prototype.slice.call(arguments, 1));
 	};
 
-	next.back = function()
+	next.back = function back()
 	{
-		steps = [lastStep, curStep].concat(steps);
+		steps = [lastStep, curStep, ...steps];
 		next.apply(null, arguments);
 	};
 
