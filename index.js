@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable no-var, prefer-rest-params, init-declarations, no-underscore-dangle, unicorn/prefer-negative-index, prefer-spread, vars-on-top, no-throw-literal, unicorn/prefer-reflect-apply */
+/* eslint-disable no-var, prefer-rest-params, init-declarations, unicorn/prefer-negative-index, prefer-spread, vars-on-top, no-throw-literal, unicorn/prefer-reflect-apply */
 
 // Original inspiration: https://github.com/creationix/step
 function tiptoe()
