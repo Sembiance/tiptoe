@@ -36,7 +36,7 @@ tiptoe(
 	function step6()
 	{
 		console.log("d");
-		this();
+		this.jump(1);
 	},
 	function step7()
 	{

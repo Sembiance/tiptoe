@@ -21,7 +21,7 @@ function tiptoe()
 		{
 			// Throw errors
 			if(args[0])
-				throw {err : args[0], origin : originError};
+				throw {err : args[0], origin : originError, curLoc : new Error("tiptoe uncaught error at final step")};
 
 			return;
 		}
@@ -70,6 +70,8 @@ function tiptoe()
 		{
 			// Pass any exceptions on through the next callback
 			next(err);
+
+			// WARNING: What about the rest of the code after this catch? Am I not calling next() twice? test-error-capture.js seems to show things are ok?
 		}
 
 		if(counter>0 && pending===0)

@@ -33,8 +33,9 @@ tiptoe(
 		if(err)
 		{
 			console.log(err);
-			console.log("e");
-			process.exit(1);
+			console.log("e: should only see once");
+			setTimeout(() => process.exit(1), 1000);
+			return;
 		}
 
 		console.log("SHOULD NOT SEE2");
