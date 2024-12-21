@@ -16,7 +16,7 @@ tiptoe(
 
 		console.log("b %d of %d", triesCounter, RETRY_COUNT);
 		this.capture();
-		this(triesCounter ? triesCounter : undefined);
+		this(triesCounter || undefined);
 	},
 	function step3(triesCounter)
 	{

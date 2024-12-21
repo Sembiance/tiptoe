@@ -1,5 +1,5 @@
 "use strict";
-
+/* eslint-disable no-implicit-globals */
 const tiptoe = require("./index");
 
 function test(cb)

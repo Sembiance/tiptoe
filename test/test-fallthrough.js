@@ -15,7 +15,7 @@ tiptoe(
 	{
 		console.log("SHOULD NOT SEE2");
 	},
-	function finish(err)
+	function finish()
 	{
 		console.log("SHOULD NOT SEE3");
 		process.exit(0);

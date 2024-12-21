@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable no-param-reassign */
+/* eslint-disable prefer-template, no-implicit-globals */
 
 const XU = require("@sembiance/xu"),
 	path = require("path"),
@@ -8,17 +8,16 @@ const XU = require("@sembiance/xu"),
 
 function run(command, args, options, cb)
 {
-	options = options || {};
+	options ||= {};
 	
 	if(!options.silent)
 		console.log("RUNNING%s: %s %s", (options.cwd ? " (cwd: " + options.cwd + ")": ""), command, args.join(" "));
-	if(!options.maxBuffer)
-		options.maxBuffer = (1024*1024)*20;	// 20MB Buffer
+	options.maxBuffer ||= (1024*1024)*20;	// 20MB Buffer
 	if(!options.hasOwnProperty("redirect-stderr"))
 		options["redirect-stderr"] = true;
 	
-	let p=null;
-	if(cb)
+	let p;
+	if(cb)	// eslint-disable-line unicorn/prefer-ternary
 		p = childProcess.execFile(command, args, options, handler);
 	else
 		p = childProcess.execFile(command, args, handler);
@@ -38,7 +37,7 @@ function run(command, args, options, cb)
 
 		if(stderr)
 		{
-			stderr = stderr.replace(/Xlib:[ ]+extension "RANDR" missing on display "[^:]*:[^"]+".\n?/, "");
+			stderr = stderr.replace(/Xlib: +extension "RANDR" missing on display "[^:]*:[^"]+".\n?/, "");
 			stderr = stderr.trim();
 			if(!stderr.length)
 				stderr = null;
@@ -85,5 +84,5 @@ const validResults = ["abcdefgh", "abcde", "abc", "abc", "abc", "ab", "a", "abc"
 		assert.strictEqual(data.strip("\n "), validResults[i], testName);
 		subcb();
 	});
-}, err => process.exit(0) );
+}, () => process.exit(0) );
 
